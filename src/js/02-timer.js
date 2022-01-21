@@ -13,9 +13,9 @@ const secs = document.querySelector('[data-seconds]');
 let selectedTime = 0;
 start.disabled = true;
 const options = {
-    enableTime: true,
+    // enableTime: true,
     time_24hr: true,
-    defaultDate: new Date(),
+       defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
       console.log(selectedDates[0]);
@@ -27,15 +27,20 @@ const options = {
       }
       selectedTime = selectedDate[0];
       start.disabled = false;
+      
     },
   };
   const datePicker = flatpickr('#datetime-picker', options);
 
     function updateTimer({days, hours, minutes, seconds }) {
-      Days.textContent = days;
-      Hours.textContent = hours;
-      mins.textContent = minutes;
-      secs.textContent = seconds;
+      if(days >= 0){
+      Days.textContent = days;}
+      if(hours >= 0){
+      Hours.textContent = hours;}
+      if(minutes >= 0){
+      mins.textContent = minutes;}
+      if(seconds >= 0){
+      secs.textContent = seconds;}
    
     }
     function convertMs(ms) {
@@ -66,6 +71,7 @@ const options = {
            const time = datePicker.selectedDates[0] - currentTime;
            const timeComponents = convertMs(time);
            updateTimer(timeComponents, time);
+         
 
       }, 1000);
     }

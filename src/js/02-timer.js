@@ -13,7 +13,7 @@ const secs = document.querySelector('[data-seconds]');
 let selectedTime = 0;
 start.disabled = true;
 const options = {
-    // enableTime: true,
+    enableTime: true,
     time_24hr: true,
        defaultDate: new Date(),
     minuteIncrement: 1,
@@ -66,15 +66,20 @@ const options = {
       }
       start.addEventListener('click', setTimer);
       function  setTimer() {
-        setInterval(() => {
+       const intervalId = setInterval(() => {
             const currentTime = Date.now();
            const time = datePicker.selectedDates[0] - currentTime;
            const timeComponents = convertMs(time);
            updateTimer(timeComponents, time);
+           console.log(time);
+           if(time < 0){
+            alert('Отсчет окончен!');
+            clearInterval(intervalId);
+            return;
+           }
+         }, 1000);
          
-
-      }, 1000);
-    }
+         }
       
     
    
